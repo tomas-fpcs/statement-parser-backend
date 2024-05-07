@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import se.fpcs.statement.backend.dto.StatementDto;
 import se.fpcs.statement.backend.service.StatementParserService;
 import se.fpcs.statement.parser_core.Statement;
 import se.fpcs.statement.parser_core.StatementType;
@@ -33,8 +34,10 @@ public class StatementParserController {
         try {
             File tempFile = File.createTempFile(getClass().getSimpleName(), ".tmp");
             multipartFile.transferTo(tempFile);
-            return ResponseEntity.ok(
-                    statementParserService.parse(statementType, tempFile));
+
+            Statement statement = statementParserService.parse(statementType, tempFile);
+
+            return ResponseEntity.ok(statement);
 
         } catch (IOException e) {
             throw new RuntimeException(e);

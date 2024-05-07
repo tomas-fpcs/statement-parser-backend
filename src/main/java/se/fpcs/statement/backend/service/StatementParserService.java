@@ -29,4 +29,9 @@ public class StatementParserService {
                 .parse(file);
 
     }
+
+    public Statement create(Statement statement) {
+
+
+    }
 }
